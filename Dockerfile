@@ -1,7 +1,13 @@
-FROM tomcat:8.0.20-jre8
+FROM openjdk:8u151-jdk-alpine3.7
 
 MAINTAINER Ashok <ashok@oracle.com>
 
-EXPOSE 8080
+EXPOSE 8063
 
-COPY target/maven-web-app.war /usr/local/tomcat/webapps/maven-web-app.war
+ENV APP_HOME /usr/src/app
+
+COPY target/web-app.jar $APP_HOME/app.jar
+
+WORKDIR $APP_HOME
+
+ENTRYPOINT exec java -jar app.jar
